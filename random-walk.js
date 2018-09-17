@@ -13,7 +13,7 @@ function randomWalk() {
 	var instability = false;
     for (var i = 0; i < k; i++) {
         for (var channel = 1; channel <= buff.channelcount(); channel++) {
-            tmp = buff.peek(channel, j, 1);
+            tmp = buff.peek(channel, Math.round(j), 1);
             buff.poke(channel, i, (tmp * amp) + (buff.peek(channel, i, 1) * 0.7));
         }
 		if (!instability) {
@@ -21,7 +21,7 @@ function randomWalk() {
 				amp += 0.001;
 			}
 		} else {
-			if (amp < 0.25) {
+			if (amp < 0.75) {
 				amp += 0.001;
 			}
 		}
@@ -35,22 +35,23 @@ function randomWalk() {
 			
         }
 		if (!instability) {
-			if (Math.random() < 0.0000015) {
+			if (Math.random() < 0.00015) {
 				instability = true;
 				amp = 0;
 			} 
 		}
 		if (instability) {
-			amp = 0.25;
+			amp = 0.75;
 			//direction += (Math.random() < 0.5) ? -1 : 1;
 			//direction *= (Math.random() < 0.5) ? 0.9 : 1.1;
-			if (Math.random() < 0.001) {
-				direction *= (Math.random() < 0.75) ? 0.999 : 1.111;
+			if (Math.random() < 0.1) {
+				direction *= (Math.random() < 0.5) ? 0.99 : 1.01;
+				//direction *= (Math.random() < 0.75) ? 0.9999 : 1.0001;
 			}
 			if (Math.random() < 0.1) {
 				//direction *= (Math.random() < 0.5) ? 0.999 : 1.111;
 			}
-			if (Math.random() < 0.0001) {
+			if (Math.random() < 0.00001) {
 				instability = false;
 				direction = (direction < 0) ? -1 : 1;
 				amp = 1;
